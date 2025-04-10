@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Cargos e Exames</title>
+    <style>
+        /* Reset e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            text-align: center;
+        }
+        
+        /* Navegação entre telas */
+        .screen {
+            display: none;
+        }
+        
+        #screen1:target,
+        #screen1:not(:target):not(:target) + .screen:not(:target) + .screen:not(:target) {
+            display: block;
+        }
+        
+        #screen2:target {
+            display: block;
+        }
+        
+        #screen3:target {
+            display: block;
+        }
+        
+        /* Estilos para os cards de profissões */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        /* Estilos para a tela de detalhes */
+        .details-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .details-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .details-header h2 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .cbo-code {
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .description {
+            margin-bottom: 20px;
+        }
+        
+        .exams-section {
+            margin-bottom: 30px;
+        }
+        
+        .exams-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .exam-list {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+        
+        .exam-list li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .exam-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        
+        .special-activities {
+            margin-top: 30px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .special-activities h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item input {
+            margin-right: 10px;
+        }
+        
+        .search-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto;
+        }
+        
+        .search-button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Estilos para a tela de resultados */
+        .results-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .results-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .results-section {
+            margin-bottom: 30px;
+        }
+        
+        .results-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .results-table th, 
+        .results-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .results-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .results-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Portal de Cargos e Exames Ocupacionais</h1>
+        </div>
+    </header>
+
+    <!-- Tela 1: Lista de Profissões -->
+    <div id="screen1" class="screen">
+        <div class="container">
+            <h2>Selecione uma Profissão</h2>
+            <div class="card-grid">
+                <a href="#screen2" class="card-link">
+                    <div class="card">
+                        <h3>Engenheiro Civil</h3>
+                        <p>Profissional responsável por projetos e obras de construção civil.</p>
+                    </div>
+                </a>
+                
+                <a href="#screen2" class="card-link">
+                    <div class="card">
+                        <h3>Técnico em Enfermagem</h3>
+                        <p>Profissional de saúde que presta assistência em procedimentos de enfermagem.</p>
+                    </div>
+                </a>
+                
+                <a href="#screen2" class="card-link">
+                    <div class="card">
+                        <h3>Operador de Máquinas</h3>
+                        <p>Profissional que opera máquinas e equipamentos industriais.</p>
+                    </div>
+                </a>
+                
+                <a href="#screen2" class="card-link">
+                    <div class="card">
+                        <h3>Analista de Sistemas</h3>
+                        <p>Profissional de TI que desenvolve e implementa sistemas de informação.</p>
+                    </div>
+                </a>
+                
+                <a href="#screen2" class="card-link">
+                    <div class="card">
+                        <h3>Motorista</h3>
+                        <p>Profissional que conduz veículos para transporte de pessoas ou cargas.</p>
+                    </div>
+                </a>
+                
+                <a href="#screen2" class="card-link">
+                    <div class="card">
+                        <h3>Soldador</h3>
+                        <p>Profissional que realiza soldagem de peças metálicas.</p>
+                    </div>
+                </a>
+                
+                <a href="#screen2" class="card-link">
+                    <div class="card">
+                        <h3>Auxiliar Administrativo</h3>
+                        <p>Profissional que realiza atividades administrativas e de escritório.</p>
+                    </div>
+                </a>
+                
+                <a href="#screen2" class="card-link">
+                    <div class="card">
+                        <h3>Eletricista</h3>
+                        <p>Profissional que instala e mantém sistemas elétricos.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela 2: Detalhes da Profissão -->
+    <div id="screen2" class="screen">
+        <div class="container">
+            <div class="details-container">
+                <div class="details-header">
+                    <h2>Engenheiro Civil</h2>
+                    <span class="cbo-code">CBO: 2142-05</span>
+                    <div class="description">
+                        <p>Elabora, executa e dirige projetos de engenharia civil relativos a rodovias, portos, aeroportos, vias férreas, sistemas de água e esgoto e outros, estudando características e preparando planos, métodos de trabalho e demais dados requeridos, para possibilitar e orientar a construção, manutenção e reparo das obras mencionadas e assegurar os padrões técnicos exigidos.</p>
+                    </div>
+                </div>
+                
+                <div class="exams-section">
+                    <h3>Exames Admissionais</h3>
+                    <ul class="exam-list">
+                        <li>Exame Clínico Ocupacional</li>
+                        <li>Hemograma Completo</li>
+                        <li>Glicemia em Jejum</li>
+                        <li>Audiometria</li>
+                        <li>Acuidade Visual</li>
+                    </ul>
+                </div>
+                
+                <div class="exams-section">
+                    <h3>Exames Periódicos</h3>
+                    <ul class="exam-list">
+                        <li>Exame Clínico Ocupacional</li>
+                        <li>Hemograma Completo</li>
+                        <li>Glicemia em Jejum</li>
+                        <li>Audiometria (a cada 12 meses)</li>
+                    </ul>
+                </div>
+                
+                <div class="exams-section">
+                    <h3>Exames Demissionais</h3>
+                    <ul class="exam-list">
+                        <li>Exame Clínico Ocupacional</li>
+                        <li>Audiometria</li>
+                    </ul>
+                </div>
+                
+                <form action="#screen3">
+                    <div class="special-activities">
+                        <h3>Atividades Especiais</h3>
+                        <p>Selecione as atividades especiais que este cargo pode exercer:</p>
+                        
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="altura" name="atividade" value="altura">
+                                <label for="altura">Trabalho em Altura</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="confinado" name="atividade" value="confinado">
+                                <label for="confinado">Espaço Confinado</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ruido" name="atividade" value="ruido">
+                                <label for="ruido">Exposição a Ruído</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="quimicos" name="atividade" value="quimicos">
+                                <label for="quimicos">Agentes Químicos</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="biologicos" name="atividade" value="biologicos">
+                                <label for="biologicos">Agentes Biológicos</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="radiacao" name="atividade" value="radiacao">
+                                <label for="radiacao">Radiação Ionizante</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="eletricidade" name="atividade" value="eletricidade">
+                                <label for="eletricidade">Eletricidade</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="vibracao" name="atividade" value="vibracao">
+                                <label for="vibracao">Vibração</label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="search-button">Buscar Exames Adicionais</button>
+                    </div>
+                </form>
+                
+                <a href="#screen1" class="back-link">← Voltar para lista de profissões</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela 3: Resultados Consolidados -->
+    <div id="screen3" class="screen">
+        <div class="container">
+            <div class="results-container">
+                <div class="results-header">
+                    <h2>Resultados Consolidados</h2>
+                    <p>Engenheiro Civil - CBO: 2142-05</p>
+                </div>
+                
+                <div class="results-section">
+                    <h3>Exames Padrão</h3>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Exames</th>
+                                <th>Periodicidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Admissional</td>
+                                <td>Exame Clínico Ocupacional, Hemograma Completo, Glicemia em Jejum, Audiometria, Acuidade Visual</td>
+                                <td>Única vez</td>
+                            </tr>
+                            <tr>
+                                <td>Periódico</td>
+                                <td>Exame Clínico Ocupacional, Hemograma Completo, Glicemia em Jejum, Audiometria</td>
+                                <td>Anual</td>
+                            </tr>
+                            <tr>
+                                <td>Demissional</td>
+                                <td>Exame Clínico Ocupacional, Audiometria</td>
+                                <td>Única vez</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="results-section">
+                    <h3>Exames Adicionais por Atividades Especiais</h3>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Atividade Especial</th>
+                                <th>Exames Adicionais</th>
+                                <th>Periodicidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Trabalho em Altura</td>
+                                <td>Eletroencefalograma (EEG), Eletrocardiograma (ECG), Exame Vestibular</td>
+                                <td>Anual</td>
+                            </tr>
+                            <tr>
+                                <td>Espaço Confinado</td>
+                                <td>Espirometria, Eletrocardiograma (ECG), Avaliação Psicológica</td>
+                                <td>Anual</td>
+                            </tr>
+                            <tr>
+                                <td>Exposição a Ruído</td>
+                                <td>Audiometria com Repouso Acústico</td>
+                                <td>Semestral</td>
+                            </tr>
+                            <tr>
+                                <td>Agentes Químicos</td>
+                                <td>Espirometria, Exames Toxicológicos Específicos</td>
+                                <td>Semestral</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="results-section">
+                    <h3>Resumo Consolidado</h3>
+                    <p>Com base nas atividades especiais selecionadas, este cargo deverá realizar os seguintes exames:</p>
+                    
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Exames Consolidados</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Admissional</td>
+                                <td>Exame Clínico Ocupacional, Hemograma Completo, Glicemia em Jejum, Audiometria, Acuidade Visual, Eletroencefalograma (EEG), Eletrocardiograma (ECG), Espirometria, Avaliação Psicológica</td>
+                            </tr>
+                            <tr>
+                                <td>Periódico</td>
+                                <td>Exame Clínico Ocupacional, Hemograma Completo, Glicemia em Jejum, Audiometria com Repouso Acústico, Eletroencefalograma (EEG), Eletrocardiograma (ECG), Espirometria, Avaliação Psicológica</td>
+                            </tr>
+                            <tr>
+                                <td>Demissional</td>
+                                <td>Exame Clínico Ocupacional, Audiometria, Eletrocardiograma (ECG)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <a href="#screen2" class="back-link">← Voltar para detalhes da profissão</a>
+                <br>
+                <a href="#screen1" class="back-link">← Voltar para lista de profissões</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+
+
+
+vari = ''
+print(vari.isspace())
