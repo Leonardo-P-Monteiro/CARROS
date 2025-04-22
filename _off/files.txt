@@ -10,14 +10,15 @@ Django:
 
     - as_table e as_p e todas as outras formas de as_* em forms:
         - Introdução sobre o assunto.
-        - Em que contexto é utilizado(a)?
         - O que é e o que faz?
+        - Qual o seu comportamento?
+        - Quais suas propriedades e atributos?
+        - Em que contexto é utilizado(a)?
         - Sintaxe;
         - parâmetros;
+        - seu retorno;
         - Como configurá-los?
             - Mencione todos os arquivos que são envolvidos nesse procedimento.
-        - seu retorno;
-        - comportamento;
         - Em que situações utilizá-la(o);
         - exemplo;
             - Explicação linha por linha e item por item da cada uma das linhas.
@@ -25,23 +26,23 @@ Django:
         - Link para a documentação oficial onde trata do assunto;
         - Mencione outras informações que sejam relevantes de forma concisa.
 
-
 ################################################################################
         PADRÃO **COM** EXEMPLO COMPLETO
         
-    Django:
+Django:
     Obs.: Gere um título condizente com o que se pede abaixo.
 
-    - forms.ModelChoiceFields:
+    - as_table e as_p e todas as outras formas de as_* em forms:
         - Introdução sobre o assunto.
-        - Em que contexto é utilizado(a)?
         - O que é e o que faz?
+        - Qual o seu comportamento?
+        - Quais suas propriedades e atributos?
+        - Em que contexto é utilizado(a)?
         - Sintaxe;
         - parâmetros;
+        - seu retorno;
         - Como configurá-los?
             - Mencione todos os arquivos que são envolvidos nesse procedimento.
-        - seu retorno;
-        - comportamento;
         - Em que situações utilizá-la(o);
         - exemplo;
             - Explicação linha por linha e item por item da cada uma das linhas.
