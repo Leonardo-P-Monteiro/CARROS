@@ -1,4 +1,5 @@
-• 
+- UserCreationForm; manual de como usá-lo para criar usuários. 
+- Manual de como usar o model User para editar um usuário já cadastrado.
 
 
 
@@ -8,7 +9,7 @@
 Django:
     Obs.: Gere um título condizente com o que se pede abaixo.
 
-    - as_table e as_p e todas as outras formas de as_* em forms:
+    - add e outros Template Filters do Django :
         - Introdução sobre o assunto.
         - O que é e o que faz?
         - Qual o seu comportamento?

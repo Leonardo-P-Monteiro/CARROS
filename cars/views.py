@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Car
-from .forms import CarForm
+from .forms import CarModelForm
 
 # Create your views here.
 def cars_views(request):
@@ -13,15 +13,15 @@ def cars_views(request):
     return render(request, 'cars.html', {'cars':cars})
 
 def new_car_view(request):
-    new_car_form = CarForm()
+    new_car_form = CarModelForm()
 
     if request.method == 'POST':
-        new_car_form = CarForm(request.POST, request.FILES)
+        new_car_form = CarModelForm(request.POST, request.FILES)
         
         if new_car_form.is_valid():
             new_car_form.save()
 
     else:
-        new_car_form = CarForm()
+        new_car_form = CarModelForm()
         
     return render(request, 'new_car.html', {'new_car_form':new_car_form})
