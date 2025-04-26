@@ -9,13 +9,13 @@
 Django:
     Obs.: Gere um título condizente com o que se pede abaixo.
 
-    - add e outros Template Filters do Django :
+    - - UserCreationForm; manual de como usá-lo para criar usuários:
         - Introdução sobre o assunto.
         - O que é e o que faz?
         - Qual o seu comportamento?
+        - Sintaxe;
         - Quais suas propriedades e atributos?
         - Em que contexto é utilizado(a)?
-        - Sintaxe;
         - parâmetros;
         - seu retorno;
         - Como configurá-los?
@@ -37,9 +37,9 @@ Django:
         - Introdução sobre o assunto.
         - O que é e o que faz?
         - Qual o seu comportamento?
-        - Quais suas propriedades e atributos?
-        - Em que contexto é utilizado(a)?
         - Sintaxe;
+        - Quais suas propriedades, métodos e atributos?
+        - Em que contexto é utilizado(a)?
         - parâmetros;
         - seu retorno;
         - Como configurá-los?
