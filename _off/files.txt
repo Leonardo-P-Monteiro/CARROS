@@ -1,5 +1,4 @@
-- UserCreationForm; manual de como usá-lo para criar usuários. 
-- Manual de como usar o model User para editar um usuário já cadastrado.
+
 
 
 
