@@ -8,7 +8,7 @@
 Django:
     Obs.: Gere um título condizente com o que se pede abaixo.
 
-    - - UserCreationForm; manual de como usá-lo para criar usuários:
+    - Função get_absolute_url():
         - Introdução sobre o assunto.
         - O que é e o que faz?
         - Qual o seu comportamento?

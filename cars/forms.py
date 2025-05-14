@@ -18,3 +18,4 @@ class CarModelForm(forms.ModelForm):
         if factory_year < 1975:
             self.add_error('factory_year', 'Veículo muito velho, não pode ser \
                            cadastrado.')
+        return factory_year
