@@ -1,4 +1,4 @@
-
+- Signals
 
 
 
@@ -8,7 +8,7 @@
 Django:
     Obs.: Gere um título condizente com o que se pede abaixo.
 
-    - Função get_absolute_url():
+    - Signals:
         - Introdução sobre o assunto.
         - O que é e o que faz?
         - Qual o seu comportamento?
@@ -20,7 +20,7 @@ Django:
         - Como configurá-los?
             - Mencione todos os arquivos que são envolvidos nesse procedimento.
         - Em que situações utilizá-la(o);
-        - exemplo;
+        - exemplos;
             - Explicação linha por linha e item por item da cada uma das linhas.
         - métodos e atributos úteis, se aplicáveis;
         - Link para a documentação oficial onde trata do assunto;
