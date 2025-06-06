@@ -29,6 +29,7 @@ class Car(models.Model):
     plate = models.CharField(max_length=10, blank=True, null=True)
     value = models.FloatField(blank=True, null=True)
     photo = models.ImageField(upload_to='cars/%Y/%m/', blank=True, null=True) #TODO: Precisa ser feito a lógica de redução da qualidade da imagem e padronização do tamanho dela. Isso se faz nos forms antes de salvar. 
+    bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.model
