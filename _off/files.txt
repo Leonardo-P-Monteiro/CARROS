@@ -1,4 +1,4 @@
-- Signals
+Concluímos a parte introdutória do curso. Agora começaremos a lidar com APIS.
 
 
 
